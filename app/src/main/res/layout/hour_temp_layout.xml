@@ -3,15 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="4dp"
+    android:gravity="center"
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/temp_image"
+        android:layout_width="30dp"
+        android:layout_height="30dp"/>
 
     <TextView
-        android:id="@+id/temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:id="@+id/temp_value"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"/>
 
 </LinearLayout>

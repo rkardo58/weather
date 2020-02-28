@@ -10,45 +10,52 @@
             type="com.example.weather.ui.MainViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.MainActivity">
+        android:layout_height="wrap_content"
+        android:fillViewport="true">
 
-        <ImageView
-            android:id="@+id/topImage"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:minHeight="200dp"
-            app:layout_constraintTop_toTopOf="parent"/>
-
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/current_temp"
-            android:layout_marginTop="20dp"/>
+            tools:context=".ui.MainActivity">
 
-        <TextView
-            android:id="@+id/current_temp"
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:background="@color/colorPrimaryDark"
-            android:textColor="@color/colorAccent"
-            android:text="@{weatherViewModel.currentWeather.main.temp.toString()}"
-            app:layout_constraintTop_toTopOf="@+id/topImage"
-            app:layout_constraintBottom_toBottomOf="@+id/topImage"
-            app:layout_constraintEnd_toEndOf="@+id/topImage"
-            android:layout_marginEnd="20dp"/>
+            <ImageView
+                android:id="@+id/topImage"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sun"
+                app:layout_constraintTop_toTopOf="parent"/>
 
-       <androidx.recyclerview.widget.RecyclerView
-           android:id="@+id/adpater"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-           android:orientation="vertical"
-           app:layout_constraintTop_toBottomOf="@+id/chart"/>
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                app:layout_constraintTop_toBottomOf="@+id/current_temp"
+                app:setGraph="@{weatherViewModel.dataSet}"
+                android:layout_margin="@dimen/margin" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/current_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin"
+                android:text="@{weatherViewModel.currentWeather.main.temp.toString()}"
+                style="@style/TemperatureText"
+                app:layout_constraintBottom_toBottomOf="@+id/topImage"
+                app:layout_constraintStart_toStartOf="@+id/topImage"
+                app:layout_constraintTop_toTopOf="@+id/topImage" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/adpater"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/margin"
+                app:layout_constraintTop_toBottomOf="@+id/chart"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 </layout>
