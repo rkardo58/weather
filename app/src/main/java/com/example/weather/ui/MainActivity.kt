@@ -1,7 +1,7 @@
 package com.example.weather.ui
 
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -9,10 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weather.R
 import com.example.weather.databinding.ActivityMainBinding
-import com.example.weather.model.TemperatureModel
-import com.example.weather.utils.getDate
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,7 +22,11 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         binding.lifecycleOwner = this
         binding.weatherViewModel = viewModel
+        setObservers()
 
+    }
+
+    private fun setObservers() {
         viewModel.daysWeatherList.observe(this, Observer {
             val adapter = DaysAdapter(this, it)
             binding.adpater.adapter = adapter
@@ -47,5 +47,9 @@ class MainActivity : AppCompatActivity() {
             id >= 200 -> R.drawable.thunder
             else -> R.drawable.sun
         }))
+    }
+
+    fun refresh(view: View){
+        viewModel.getData()
     }
 }

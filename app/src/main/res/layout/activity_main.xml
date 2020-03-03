@@ -12,12 +12,14 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/backgroundBlue"
         android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin"
             tools:context=".ui.MainActivity">
 
             <ImageView
@@ -28,22 +30,42 @@
                 android:src="@drawable/sun"
                 app:layout_constraintTop_toTopOf="parent"/>
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_refresh"
+                android:onClick="refresh"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_margin="@dimen/margin"/>
+
             <com.github.mikephil.charting.charts.LineChart
                 android:id="@+id/chart"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:layout_constraintTop_toBottomOf="@+id/current_temp"
+                app:layout_constraintTop_toTopOf="@+id/topImage"
                 app:setGraph="@{weatherViewModel.dataSet}"
-                android:layout_margin="@dimen/margin" />
+                android:layout_marginEnd="@dimen/margin"
+                android:layout_marginStart="@dimen/margin"
+                android:layout_marginTop="170dp" />
+
+            <TextView
+                android:id="@+id/city"
+                style="@style/CityText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{weatherViewModel.city}"
+                app:layout_constraintBottom_toTopOf="@+id/current_temp"
+                app:layout_constraintStart_toStartOf="@+id/current_temp" />
 
             <TextView
                 android:id="@+id/current_temp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin"
-                android:text="@{weatherViewModel.currentWeather.main.temp.toString()}"
+                android:text="@{weatherViewModel.currentWeather.main.temp}"
                 style="@style/TemperatureText"
-                app:layout_constraintBottom_toBottomOf="@+id/topImage"
+                app:layout_constraintBottom_toTopOf="@+id/chart"
                 app:layout_constraintStart_toStartOf="@+id/topImage"
                 app:layout_constraintTop_toTopOf="@+id/topImage" />
 
@@ -53,8 +75,19 @@
                 android:layout_height="wrap_content"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 android:orientation="vertical"
-                android:layout_margin="@dimen/margin"
+                android:padding="@dimen/margin"
+                android:layout_marginTop="@dimen/margin"
+                android:background="@drawable/recycler_background"
                 app:layout_constraintTop_toBottomOf="@+id/chart"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="center"
+                android:background="@color/backgroundBlue"
+                android:src="@drawable/ic_logo"
+                tools:visibility="gone"
+                app:goneIfNotLoading="@{weatherViewModel.statusDays}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

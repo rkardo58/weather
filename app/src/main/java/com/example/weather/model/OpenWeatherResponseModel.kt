@@ -7,6 +7,5 @@ class OpenWeatherResponseModel {
     @SerializedName("cod")
     lateinit var code : String
     var message = 0
-    lateinit var cnt : String
     lateinit var list : List<TemperatureModel>
 }
